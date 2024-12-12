@@ -1,2 +1,3 @@
-# kaizo-edition-fabric
-Soon to be main repository
+# magia-edition-fabric
+
+Fabric varient of Magia Edition
