@@ -5,3 +5,14 @@
 /gamemode survival
 /gamemode creative
 /summon minecraft:zombie
+/summon
+/summon me-fabric:zombie_clone
+/give Player216 me-fabric:test
+/gamemode survival
+/gamemode creative
+/gamemode spectator
+/gamemode survival
+/give Player310 me-fabric:test
+/give Player217 minecraft:acacia_boat
+/give Player310 me-fabric:test
+/give Player217 me-fabric:test

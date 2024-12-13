@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "id": "ke-fabric",
+  "id": "me-fabric",
   "version": "${version}",
-  "name": "KE-Fabric",
+  "name": "ME-Fabric",
   "description": "",
   "authors": ["Kagaries"],
   "contact": {"Kagaries": "kagarieswinnfield@gmail.com"},
@@ -17,7 +17,7 @@
       "com.kagaries.fabric.client.KeFabricClient"
     ],
     "main": [
-      "com.kagaries.fabric.KeFabric"
+      "com.kagaries.fabric.Magia"
     ]
   },
   "mixins": [

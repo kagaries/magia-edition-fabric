@@ -1,57 +1,49 @@
 package com.kagaries.fabric.mixin.entity;
 
-import com.kagaries.fabric.mixin.accessor.ZombieAccessor;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.Difficulty;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.SpawnGroupData;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.Zombie;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.block.Blocks;
+import com.kagaries.fabric.world.entity.ModEntities;
+import com.kagaries.fabric.world.entity.ZombieClone;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.*;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.mob.ZombieEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.time.LocalDate;
-import java.time.temporal.ChronoField;
+@Mixin(ZombieEntity.class)
+public abstract class ZombieMixin extends HostileEntity {
 
-@Mixin(Zombie.class)
-public abstract class ZombieMixin extends Monster {
-
-    protected ZombieMixin(EntityType<? extends Monster> entityType, Level level) {
+    protected ZombieMixin(EntityType<? extends HostileEntity> entityType, World level) {
         super(entityType, level);
     }
 
-    @Redirect(method = "createAttributes", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/monster/Monster;createMonsterAttributes()Lnet/minecraft/world/entity/ai/attributes/AttributeSupplier$Builder;"))
-    private static AttributeSupplier.Builder createAttributes() {
-        return Monster.createMonsterAttributes().add(Attributes.FOLLOW_RANGE, 100.0D).add(Attributes.MOVEMENT_SPEED, (double)0.2F).add(Attributes.ATTACK_DAMAGE, 5.5D).add(Attributes.ARMOR, 6.0D).add(Attributes.SPAWN_REINFORCEMENTS_CHANCE).add(Attributes.MAX_HEALTH, 22.5D);
+    @Redirect(method = "createZombieAttributes", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/mob/HostileEntity;createHostileAttributes()Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;"))
+    private static DefaultAttributeContainer.Builder createAttributes() {
+        return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, (double)0.2F).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 5.5D).add(EntityAttributes.GENERIC_ARMOR, 6.0D).add(EntityAttributes.ZOMBIE_SPAWN_REINFORCEMENTS).add(EntityAttributes.GENERIC_MAX_HEALTH, 22.5D);
     }
 
-    @Redirect(method = "aiStep", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/monster/Monster;aiStep()V"))
-    private void aiStep(Monster instance) {
-        if (((Zombie)(Object)this).isAlive()) {
+    @Redirect(method = "tickMovement", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/mob/HostileEntity;tickMovement()V"))
+    private void aiStep(HostileEntity instance) {
+        if (((ZombieEntity)(Object)this).isAlive()) {
             boolean bl = true;
             if (bl) {
-                ItemStack itemStack = ((Zombie)(Object)this).getItemBySlot(EquipmentSlot.HEAD);
-                if (!itemStack.isEmpty() && !itemStack.is(Items.GREEN_BANNER)) {
-                    if (itemStack.isDamageableItem()) {
-                        RandomSource random = RandomSource.create();
-                        itemStack.setDamageValue(itemStack.getDamageValue() + random.nextInt(2));
-                        if (itemStack.getDamageValue() >= itemStack.getMaxDamage()) {
-                            ((Zombie)(Object)this).broadcastBreakEvent(EquipmentSlot.HEAD);
-                            ((Zombie)(Object)this).setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
+                ItemStack itemStack = ((ZombieEntity)(Object)this).getEquippedStack(EquipmentSlot.HEAD);
+                if (!itemStack.isEmpty() && !itemStack.isOf(Items.GREEN_BANNER)) {
+                    if (itemStack.isDamageable()) {
+                        itemStack.setDamage(itemStack.getDamage() + random.nextInt(2));
+                        if (itemStack.getDamage() >= itemStack.getMaxDamage()) {
+                            ((ZombieEntity)(Object)this).sendEquipmentBreakStatus(EquipmentSlot.HEAD);
+                            ((ZombieEntity)(Object)this).equipStack(EquipmentSlot.HEAD, ItemStack.EMPTY);
                         }
                     }
 
@@ -59,33 +51,42 @@ public abstract class ZombieMixin extends Monster {
                 }
 
                 if (bl) {
-                    ((Zombie)(Object)this).setSecondsOnFire(8);
+                    ((ZombieEntity)(Object)this).setFireTicks(8);
                 }
             }
         }
 
 
-        super.aiStep();
+        super.tickMovement();
     }
 
-    @Inject(method = "finalizeSpawn", at = @At(value = "TAIL"))
-    private void finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, SpawnGroupData spawnGroupData, CompoundTag compoundTag, CallbackInfoReturnable<SpawnGroupData> cir) {
-        if (((Zombie)(Object)this).getItemBySlot(EquipmentSlot.HEAD).isEmpty()) {
-            RandomSource randomSource = RandomSource.create();
-            ((Zombie)(Object)this).setItemSlot(EquipmentSlot.HEAD, new ItemStack(Blocks.GREEN_BANNER));
+    @Inject(method = "initialize", at = @At(value = "TAIL"))
+    private void finalizeSpawn(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, EntityData entityData, NbtCompound entityNbt, CallbackInfoReturnable<EntityData> cir) {
+        if (((ZombieEntity)(Object)this).getEquippedStack(EquipmentSlot.HEAD).isEmpty()) {
+            ((ZombieEntity)(Object)this).equipStack(EquipmentSlot.HEAD, new ItemStack(Blocks.GREEN_BANNER));
         }
 
-        if (this.getItemBySlot(EquipmentSlot.CHEST).isEmpty()) {
-            this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.CHAINMAIL_CHESTPLATE));
+        if (this.getEquippedStack(EquipmentSlot.CHEST).isEmpty()) {
+            this.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.CHAINMAIL_CHESTPLATE));
         }
 
-        if (this.getItemBySlot(EquipmentSlot.LEGS).isEmpty()) {
-            this.setItemSlot(EquipmentSlot.LEGS, new ItemStack(Items.CHAINMAIL_LEGGINGS));
+        if (this.getEquippedStack(EquipmentSlot.LEGS).isEmpty()) {
+            this.equipStack(EquipmentSlot.LEGS, new ItemStack(Items.CHAINMAIL_LEGGINGS));
         }
 
-        if (this.getItemBySlot(EquipmentSlot.FEET).isEmpty()) {
-            this.setItemSlot(EquipmentSlot.FEET, new ItemStack(Items.CHAINMAIL_BOOTS));
+        if (this.getEquippedStack(EquipmentSlot.FEET).isEmpty()) {
+            this.equipStack(EquipmentSlot.FEET, new ItemStack(Items.CHAINMAIL_BOOTS));
         }
+
+        int randomInt = random.nextInt(5);
+
+        for (int i = 0; i < randomInt; i++) {
+            ZombieClone zombieClone = ModEntities.ZOMBIE_CLONE.create(world.toServerWorld());
+            zombieClone.setPos(this.getX(), this.getY(), this.getZ());
+            zombieClone.initialize(world, difficulty, SpawnReason.REINFORCEMENT, (EntityData) null, (NbtCompound) null);
+            world.spawnEntity(zombieClone);
+        }
+
     }
 
 }

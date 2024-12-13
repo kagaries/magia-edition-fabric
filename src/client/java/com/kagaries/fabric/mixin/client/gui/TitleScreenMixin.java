@@ -1,13 +1,17 @@
 package com.kagaries.fabric.mixin.client.gui;
 
+import com.kagaries.fabric.client.gui.screen.DiscordWarningScreen;
 import com.kagaries.fabric.mixin.client.accessor.MinecraftAccessor;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.components.SplashRenderer;
-import net.minecraft.client.gui.screens.TitleScreen;
-import net.minecraft.client.renderer.CubeMap;
-import net.minecraft.client.renderer.PanoramaRenderer;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.RandomSource;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.CubeMapRenderer;
+import net.minecraft.client.gui.RotatingCubeMapRenderer;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.SplashTextRenderer;
+import net.minecraft.client.gui.screen.TitleScreen;
+import net.minecraft.client.realms.gui.screen.RealmsMainScreen;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.Util;
+import net.minecraft.util.math.random.Random;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -15,35 +19,41 @@ import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(TitleScreen.class)
 public class TitleScreenMixin {
-    @Shadow @Nullable private SplashRenderer splash;
+    @Shadow @Nullable private SplashTextRenderer splashText;
 
     @Mutable
-    @Shadow @Final private PanoramaRenderer panorama;
+    @Shadow @Final private RotatingCubeMapRenderer backgroundRenderer;
     @Mutable
-    @Shadow @Final public static CubeMap CUBE_MAP;
+    @Shadow @Final public static CubeMapRenderer PANORAMA_CUBE_MAP;
 
     private String PanoramaLocation;
-    private RandomSource randomSource = RandomSource.create();
+    private Random randomSource = Random.create();
 
     @Inject(at = @At("HEAD"), method = "init()V")
     private void init(CallbackInfo info) {
-        if (this.splash == null) {
-            this.splash = ((MinecraftAccessor) Minecraft.getInstance()).getSplashManager().getSplash();
+        if (this.splashText == null) {
+            this.splashText = ((MinecraftAccessor) MinecraftClient.getInstance()).getSplashTextLoader().get();
         }
+    }
+
+    @Redirect(method = "switchToRealms", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;setScreen(Lnet/minecraft/client/gui/screen/Screen;)V"))
+    private void switchToRealms(MinecraftClient instance, Screen screen) {
+        MinecraftClient.getInstance().setScreen(new DiscordWarningScreen());
     }
 
     @Inject(at = @At("HEAD"), method = "removed()V")
     private void removed(CallbackInfo info) {
-        this.splash = null;
+        this.splashText = null;
     }
 
-    @Inject(at = @At("TAIL"), method = "createNormalMenuOptions")
+    @Inject(at = @At("TAIL"), method = "initWidgetsNormal")
     private void createNormalMenuOptions(CallbackInfo info) {
-        panorama = null;
+        backgroundRenderer = null;
 
         int randomInt = randomSource.nextInt(16);
         if (randomInt == 0) {
@@ -80,7 +90,7 @@ public class TitleScreenMixin {
             PanoramaLocation = "textures/gui/title/background/overworldh/panorama";
         }
 
-        CUBE_MAP = new CubeMap(new ResourceLocation(PanoramaLocation));
-        panorama = new PanoramaRenderer(CUBE_MAP);
+        PANORAMA_CUBE_MAP = new CubeMapRenderer(new Identifier(PanoramaLocation));
+        backgroundRenderer = new RotatingCubeMapRenderer(PANORAMA_CUBE_MAP);
     }
 }

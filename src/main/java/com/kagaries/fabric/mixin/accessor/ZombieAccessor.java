@@ -1,11 +1,11 @@
 package com.kagaries.fabric.mixin.accessor;
 
-import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.entity.mob.ZombieEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
-@Mixin(Zombie.class)
+@Mixin(ZombieEntity.class)
 public interface ZombieAccessor {
-    @Invoker("isSunSensitive")
-    public boolean invokeIsSunSensitive();
+    @Invoker("burnsInDaylight")
+    public boolean invokeburnsInDaylight();
 }
