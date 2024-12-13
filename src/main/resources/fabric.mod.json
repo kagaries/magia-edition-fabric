@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "ke-fabric",
+  "version": "${version}",
+  "name": "KE-Fabric",
+  "description": "",
+  "authors": ["Kagaries"],
+  "contact": {"Kagaries": "kagarieswinnfield@gmail.com"},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/ke-fabric/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-datagen": [
+      "com.kagaries.fabric.data.ModDataGenerator"
+    ],
+    "client": [
+      "com.kagaries.fabric.client.KeFabricClient"
+    ],
+    "main": [
+      "com.kagaries.fabric.KeFabric"
+    ]
+  },
+  "mixins": [
+    "ke-fabric.mixins.json",
+    {
+      "config": "ke-fabric.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

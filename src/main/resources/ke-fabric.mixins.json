@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.kagaries.fabric.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "entity.ZombieMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
