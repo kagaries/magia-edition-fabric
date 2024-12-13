@@ -1,0 +1,7 @@
+/summon minecraft:zombie
+/gamemode survival
+/gamemode creative
+/summon minecraft:zombie
+/gamemode survival
+/gamemode creative
+/summon minecraft:zombie
