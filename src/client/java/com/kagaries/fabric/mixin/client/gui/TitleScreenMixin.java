@@ -2,15 +2,20 @@ package com.kagaries.fabric.mixin.client.gui;
 
 import com.kagaries.fabric.client.gui.screen.DiscordWarningScreen;
 import com.kagaries.fabric.mixin.client.accessor.MinecraftAccessor;
+import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.SharedConstants;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.CubeMapRenderer;
-import net.minecraft.client.gui.RotatingCubeMapRenderer;
+import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.SplashTextRenderer;
 import net.minecraft.client.gui.screen.TitleScreen;
-import net.minecraft.client.realms.gui.screen.RealmsMainScreen;
+import net.minecraft.client.gui.widget.ClickableWidget;
+import net.minecraft.client.realms.gui.screen.RealmsNotificationsScreen;
+import net.minecraft.client.resource.language.I18n;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
@@ -22,8 +27,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.Iterator;
+
 @Mixin(TitleScreen.class)
-public class TitleScreenMixin {
+public abstract class TitleScreenMixin extends Screen {
     @Shadow @Nullable private SplashTextRenderer splashText;
 
     @Mutable
@@ -33,6 +40,10 @@ public class TitleScreenMixin {
 
     private String PanoramaLocation;
     private Random randomSource = Random.create();
+
+    protected TitleScreenMixin(Text title) {
+        super(title);
+    }
 
     @Inject(at = @At("HEAD"), method = "init()V")
     private void init(CallbackInfo info) {

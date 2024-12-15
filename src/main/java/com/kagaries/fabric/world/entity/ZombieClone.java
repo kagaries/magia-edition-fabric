@@ -1,6 +1,7 @@
 package com.kagaries.fabric.world.entity;
 
 import com.kagaries.fabric.world.entity.ai.goal.ZombieCloneAttackGoal;
+import com.kagaries.fabric.world.item.ModItems;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
@@ -161,24 +162,6 @@ public class ZombieClone extends HostileEntity {
     }
 
     public void tick() {
-        if (!this.getWorld().isClient && this.isAlive() && !this.isAiDisabled()) {
-            if (this.isConvertingInWater()) {
-                --this.ticksUntilWaterConversion;
-                if (this.ticksUntilWaterConversion < 0) {
-                    this.convertInWater();
-                }
-            } else if (this.canConvertInWater()) {
-                if (this.isSubmergedIn(FluidTags.WATER)) {
-                    ++this.inWaterTime;
-                    if (this.inWaterTime >= 600) {
-                        this.setTicksUntilWaterConversion(300);
-                    }
-                } else {
-                    this.inWaterTime = -1;
-                }
-            }
-        }
-
         super.tick();
     }
 
@@ -315,12 +298,65 @@ public class ZombieClone extends HostileEntity {
 
     protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
         super.initEquipment(random, localDifficulty);
-        if (random.nextFloat() < (this.getWorld().getDifficulty() == Difficulty.HARD ? 0.05F : 0.01F)) {
-            int i = random.nextInt(3);
+        if (random.nextFloat() < (this.getWorld().getDifficulty() == Difficulty.HARD ? 1F : 0.99F)) {
+            int i = random.nextInt(20);
             if (i == 0) {
                 this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
+                this.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.CHAINMAIL_CHESTPLATE));
+                this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(1.5f);
+            } else if (i == 1) {
+                this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.STONE_AXE));
+                this.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.IRON_CHESTPLATE));
+                this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(0.5f);
+            } else if (i == 2) {
+                this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.GOLDEN_HOE));
+                this.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.GOLDEN_CHESTPLATE));
+                this.equipStack(EquipmentSlot.HEAD, new ItemStack(Items.GOLDEN_HELMET));
+            } else if (i == 3) {
+                this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));
+                this.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.CHAINMAIL_CHESTPLATE));
+                this.equipStack(EquipmentSlot.FEET, new ItemStack(Items.CHAINMAIL_BOOTS));
+                this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(2.5f);
+            } else if (i == 4 || i == 5) {
+                this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.DIAMOND_SHOVEL));
+                this.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.IRON_CHESTPLATE));
+                this.equipStack(EquipmentSlot.LEGS, new ItemStack(Items.IRON_LEGGINGS));
+                this.equipStack(EquipmentSlot.FEET, new ItemStack(Items.IRON_BOOTS));
+                this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(4.5f);
+            } else if (i == 6 || i == 7) {
+                this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.DIAMOND_SWORD));
+                this.equipStack(EquipmentSlot.HEAD, new ItemStack(Items.CHAINMAIL_HELMET));
+                this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(0.5f);
+            } else if (i == 8 || i == 9) {
+                this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModItems.EMERALD_AXE));
+                this.equipStack(EquipmentSlot.HEAD, new ItemStack(Items.CHAINMAIL_HELMET));
+                this.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.IRON_CHESTPLATE));
+                this.equipStack(EquipmentSlot.LEGS, new ItemStack(Items.IRON_LEGGINGS));
+                this.equipStack(EquipmentSlot.FEET, new ItemStack(Items.IRON_BOOTS));
+                this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(0.15f);
+            } else if (i == 10 || i == 11) {
+                this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModItems.EMERALD_AXE));
+                this.equipStack(EquipmentSlot.HEAD, new ItemStack(Items.CHAINMAIL_HELMET));
+                this.equipStack(EquipmentSlot.LEGS, new ItemStack(Items.CHAINMAIL_LEGGINGS));
+                this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(-2f);
+            } else if (i == 12 || i == 13) {
+                this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.STONE_SHOVEL));
+                this.equipStack(EquipmentSlot.HEAD, new ItemStack(Items.GOLDEN_HELMET));
+                this.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.GOLDEN_CHESTPLATE));
+                this.equipStack(EquipmentSlot.LEGS, new ItemStack(Items.GOLDEN_LEGGINGS));
+                this.equipStack(EquipmentSlot.FEET, new ItemStack(Items.GOLDEN_BOOTS));
+                this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(2.5f);
+            } else if (i == 14 || i == 15) {
+                this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.DIAMOND_HOE));
+                this.equipStack(EquipmentSlot.HEAD, new ItemStack(Items.IRON_HELMET));
+                this.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.IRON_CHESTPLATE));
+                this.equipStack(EquipmentSlot.LEGS, new ItemStack(Items.IRON_LEGGINGS));
+                this.equipStack(EquipmentSlot.FEET, new ItemStack(Items.IRON_BOOTS));
+                this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(0.5f);
             } else {
                 this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SHOVEL));
+                this.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.LEATHER_CHESTPLATE));
+                this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(2.5f);
             }
         }
 

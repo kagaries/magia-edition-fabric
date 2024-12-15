@@ -29,7 +29,7 @@ public class ModBlocks {
             ModItems.register(blockItem, name);
         }
 
-        Magia.LOGGER.info("Registering Block: " + id.getNamespace() + ":" + id.getPath());
+        Magia.getLogger().info("Registering Block: {}:{}", id.getNamespace(), id.getPath());
 
         return Registry.register(Registries.BLOCK, id, block);
     }
