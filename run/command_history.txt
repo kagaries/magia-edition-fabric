@@ -17,3 +17,8 @@
 /give Player310 me-fabric:test
 /give Player217 me-fabric:test
 /summon minecraft:zombie
+/gamemode creative
+/give Player868 me-fabric:test
+/gamemode survival
+/gamemode creative
+/clear

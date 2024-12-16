@@ -2,6 +2,7 @@ package com.kagaries.fabric.world.block;
 
 import com.kagaries.fabric.Magia;
 import com.kagaries.fabric.world.item.ModItems;
+import io.wispforest.owo.registration.reflect.BlockRegistryContainer;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -14,25 +15,12 @@ import net.minecraft.util.Identifier;
 
 import java.util.logging.Level;
 
-public class ModBlocks {
+public class ModBlocks implements BlockRegistryContainer {
 
-    public static final Block TEST = register(new Block(AbstractBlock.Settings.create()), "test", true);
+    public static final Block TEST = new Block(AbstractBlock.Settings.create());
 
-    public static Block register(Block block, String name, boolean shouldRegisterItem) {
-        // Register the block and its item.
-        Identifier id = Identifier.of(Magia.MOD_ID, name);
-
-        // Sometimes, you may not want to register an item for the block.
-        // Eg: if it's a technical block like `minecraft:air` or `minecraft:end_gateway`
-        if (shouldRegisterItem) {
-            BlockItem blockItem = new BlockItem(block, new Item.Settings());
-            ModItems.register(blockItem, name);
-        }
-
-        Magia.getLogger().info("Registering Block: {}:{}", id.getNamespace(), id.getPath());
-
-        return Registry.register(Registries.BLOCK, id, block);
+    @Override
+    public BlockItem createBlockItem(Block block, String identifier) {
+        return new BlockItem(block, new Item.Settings());
     }
-
-    public static void initialize() {}
 }

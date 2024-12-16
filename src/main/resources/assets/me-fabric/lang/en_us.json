@@ -1,0 +1,20 @@
+{
+  "text.config.magia-config.title": "Magia Edition Config",
+
+  "text.config.magia-config.option.damageMulti": "Damage Multiplier",
+  "text.config.magia-config.option.damageMulti.tooltip": "This is currently non-functioning.",
+
+  "text.config.magia-config.option.UnfairMode": "Unfair Mode",
+  "text.config.magia-config.option.UnfairMode.tooltip": "This is currently non-functioning.",
+
+  "text.config.magia-config.option.doQuickExplosionDamage": "DoQuickExplosionDamage",
+  "text.config.magia-config.option.doQuickExplosionDamage.tooltip": "Should explosives like End Crystals deal damage or not.",
+
+  "text.config.magia-config.option.PvPRangedDamage": "PvP Ranged Damage",
+  "text.config.magia-config.option.PvPRangedDamage.tooltip": "Should Ranged Weapons used by Players deal damage or not.",
+
+  "text.config.magia-config.option.PvPExplosionDamage": "PvP Explosion Damage",
+  "text.config.magia-config.option.PvPExplosionDamage.tooltip": "Should Explosion Damage from Players deal damage or not.",
+
+  "me-fabric.main": "Main Version"
+}

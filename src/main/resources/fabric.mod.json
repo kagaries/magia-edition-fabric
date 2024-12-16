@@ -1,14 +1,17 @@
 {
   "schemaVersion": 1,
+  "name": "Magia Edition",
+  "description": "A mod that aims to overhaul and expand Minecraft's content.",
   "id": "me-fabric",
   "version": "${version}",
-  "name": "ME-Fabric",
-  "description": "",
-  "authors": ["Kagaries"],
-  "contact": {"Kagaries": "kagarieswinnfield@gmail.com"},
-  "license": "All-Rights-Reserved",
+  "license": "MIT",
   "icon": "assets/me-fabric/icon.png",
   "environment": "*",
+  "contact": {
+    "email": "kagarieswinnfield@gmail.com",
+    "sources": "https://github.com/kagaries/magia-edition-fabric",
+    "issues": "https://github.com/kagaries/magia-edition-fabric/issues"
+  },
   "entrypoints": {
     "fabric-datagen": [
       "com.kagaries.fabric.data.ModDataGenerator"
@@ -31,5 +34,18 @@
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
     "minecraft": "${minecraft_version}"
+  },
+  "authors": ["Kagaries"],
+  "contributors": [
+    "SightedTortoise",
+    "Taco Dark"
+  ],
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/dcRBF3Rqsg",
+        "me-fabric.main": "https://github.com/kagaries/magia-edition-public"
+      }
+    }
   }
 }
