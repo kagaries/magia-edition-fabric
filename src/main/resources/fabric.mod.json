@@ -7,7 +7,7 @@
   "authors": ["Kagaries"],
   "contact": {"Kagaries": "kagarieswinnfield@gmail.com"},
   "license": "All-Rights-Reserved",
-  "icon": "assets/ke-fabric/icon.png",
+  "icon": "assets/me-fabric/icon.png",
   "environment": "*",
   "entrypoints": {
     "fabric-datagen": [

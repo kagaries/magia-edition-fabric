@@ -1,18 +1,13 @@
 package com.kagaries.fabric.world.entity;
 
 import com.kagaries.fabric.Magia;
-import com.mojang.datafixers.DataFix;
-import com.mojang.datafixers.DataFixerBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-
-import java.util.logging.Level;
 
 public class ModEntities {
 

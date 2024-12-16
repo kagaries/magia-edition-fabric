@@ -16,3 +16,4 @@
 /give Player217 minecraft:acacia_boat
 /give Player310 me-fabric:test
 /give Player217 me-fabric:test
+/summon minecraft:zombie

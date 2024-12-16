@@ -5,6 +5,9 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/KE-Fabric.client.iml" filepath="$PROJECT_DIR$/.idea/modules/KE-Fabric.client.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/KE-Fabric.main.iml" filepath="$PROJECT_DIR$/.idea/modules/KE-Fabric.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/KE-Fabric.test.iml" filepath="$PROJECT_DIR$/.idea/modules/KE-Fabric.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.kagaries.magia-edition-fabric.client.iml" filepath="$PROJECT_DIR$/.idea/modules/com.kagaries.magia-edition-fabric.client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.kagaries.magia-edition-fabric.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.kagaries.magia-edition-fabric.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.kagaries.magia-edition-fabric.test.iml" filepath="$PROJECT_DIR$/.idea/modules/com.kagaries.magia-edition-fabric.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/magia-edition-fabric.client.iml" filepath="$PROJECT_DIR$/.idea/modules/magia-edition-fabric.client.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/magia-edition-fabric.main.iml" filepath="$PROJECT_DIR$/.idea/modules/magia-edition-fabric.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/magia-edition-fabric.test.iml" filepath="$PROJECT_DIR$/.idea/modules/magia-edition-fabric.test.iml" />
