@@ -7,6 +7,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(MinecraftClient.class)
 public interface MinecraftAccessor {
+    //Allows access to the SplashTextLoader
     @Accessor
     SplashTextResourceSupplier getSplashTextLoader();
 }

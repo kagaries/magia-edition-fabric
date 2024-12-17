@@ -45,6 +45,7 @@ public abstract class TitleScreenMixin extends Screen {
         super(title);
     }
 
+    //Gets new splash text on init
     @Inject(at = @At("HEAD"), method = "init()V")
     private void init(CallbackInfo info) {
         if (this.splashText == null) {
@@ -52,16 +53,19 @@ public abstract class TitleScreenMixin extends Screen {
         }
     }
 
+    //Changes what screen the realms button sends the Player to
     @Redirect(method = "switchToRealms", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;setScreen(Lnet/minecraft/client/gui/screen/Screen;)V"))
     private void switchToRealms(MinecraftClient instance, Screen screen) {
         MinecraftClient.getInstance().setScreen(new DiscordWarningScreen());
     }
 
+    //Sets splash text to null on close
     @Inject(at = @At("HEAD"), method = "removed()V")
     private void removed(CallbackInfo info) {
         this.splashText = null;
     }
 
+    //Randomizes the background panorama
     @Inject(at = @At("TAIL"), method = "initWidgetsNormal")
     private void createNormalMenuOptions(CallbackInfo info) {
         backgroundRenderer = null;

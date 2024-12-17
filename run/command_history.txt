@@ -22,3 +22,7 @@
 /gamemode survival
 /gamemode creative
 /clear
+/summon minecraft:zombie
+/gamemode survival
+/gamemode creative
+/gamemode survival

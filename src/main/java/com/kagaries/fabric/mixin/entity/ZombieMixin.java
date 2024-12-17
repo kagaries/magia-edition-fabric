@@ -27,11 +27,13 @@ public abstract class ZombieMixin extends HostileEntity {
         super(entityType, level);
     }
 
+    //Changes ZombieEntity attributes
     @Redirect(method = "createZombieAttributes", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/mob/HostileEntity;createHostileAttributes()Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;"))
     private static DefaultAttributeContainer.Builder createAttributes() {
         return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, (double)0.2F).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 5.5D).add(EntityAttributes.GENERIC_ARMOR, 6.0D).add(EntityAttributes.ZOMBIE_SPAWN_REINFORCEMENTS).add(EntityAttributes.GENERIC_MAX_HEALTH, 22.5D);
     }
 
+    //Redirects the method to stop ZombieEntities with green banners from not burning in the sun
     @Redirect(method = "tickMovement", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/mob/HostileEntity;tickMovement()V"))
     private void aiStep(HostileEntity instance) {
         if (((ZombieEntity)(Object)this).isAlive()) {
@@ -60,6 +62,7 @@ public abstract class ZombieMixin extends HostileEntity {
         super.tickMovement();
     }
 
+    //Makes the ZombieEntity spawn with custom equipment if that slot is empty, and spawns 0-4 ZombieCloneEntities.
     @Inject(method = "initialize", at = @At(value = "TAIL"))
     private void finalizeSpawn(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, EntityData entityData, NbtCompound entityNbt, CallbackInfoReturnable<EntityData> cir) {
         if (((ZombieEntity)(Object)this).getEquippedStack(EquipmentSlot.HEAD).isEmpty()) {

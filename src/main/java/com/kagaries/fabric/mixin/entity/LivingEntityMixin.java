@@ -19,6 +19,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.stat.Stats;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -34,6 +35,7 @@ public abstract class LivingEntityMixin extends Entity {
         super(type, world);
     }
 
+    //Adds if statements and *= to allow for config to work.
     @Inject(method = "damage", at = @At("HEAD"))
     public void damage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if (source.getAttacker() instanceof PlayerEntity && source.getType().equals(DamageTypes.ARROW) && Magia.CONFIG.PvPRangedDamage()) {
@@ -43,5 +45,7 @@ public abstract class LivingEntityMixin extends Entity {
         if (source.getAttacker() instanceof PlayerEntity && source.getType().equals(DamageTypes.PLAYER_EXPLOSION) && Magia.CONFIG.PvPExplosionDamage()) {
             return;
         }
+
+        amount *= Magia.CONFIG.damageMulti();
     }
 }

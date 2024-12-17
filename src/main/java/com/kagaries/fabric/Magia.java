@@ -38,6 +38,7 @@ public class Magia implements ModInitializer {
         ModEntities.createDefaultAttributes();
         FieldRegistrationHandler.register(ModBlocks.class, MOD_ID, false);
         FieldRegistrationHandler.register(ModItems.class, MOD_ID, false);
+        FieldRegistrationHandler.register(ModEntities.class, MOD_ID, false);
 
         getOutdated();
     }
@@ -59,6 +60,7 @@ public class Magia implements ModInitializer {
         List<Version> versions;
     }
 
+    //Gets a Json page from an url that is read to check if the current version is out-of-date or not.
     public static void getOutdated() {
         try {
             Magia.getLogger().info("Checking for Update...");
@@ -90,7 +92,7 @@ public class Magia implements ModInitializer {
                 JsonResponse jsonResponse = gson.fromJson(response, JsonResponse.class);
                 //this.latestVersionID = jsonResponse.current;
                 if (!jsonResponse.current.equals(Magia.VERSION)) {
-                    Magia.getLogger().warn("Version: {} is out of date, latest is: {}", Magia.VERSION, jsonResponse.current);
+                    Magia.getLogger().error("Version: {} is out of date, latest is: {}", Magia.VERSION, jsonResponse.current);
                 }
             } else if (jsonElement.isJsonPrimitive() && jsonElement.getAsJsonPrimitive().isString()) {
                 // If it's a plain string, handle it accordingly

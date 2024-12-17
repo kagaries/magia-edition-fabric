@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(MinecraftClient.class)
 public class MinecraftClientMixin {
+    //Changes window title to "Magia Edition"
     @Redirect(method = "getWindowTitle", at = @At(value = "INVOKE", target = "Ljava/lang/StringBuilder;toString()Ljava/lang/String;"))
     private String getWindowTitle(StringBuilder instance) {
         StringBuilder stringBuilder = new StringBuilder("Magia Edition");
