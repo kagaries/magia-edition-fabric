@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.kagaries.fabric.config.MagiaConfig;
-import com.kagaries.fabric.config.MagiaConfigModel;
 import com.kagaries.fabric.world.block.ModBlocks;
 import com.kagaries.fabric.world.entity.ModEntities;
 import com.kagaries.fabric.world.item.ModItems;
@@ -37,8 +36,10 @@ public class Magia implements ModInitializer {
         getLogger().info("Initializing Magia Edition: {}", VERSION);
         ModEntities.createDefaultAttributes();
         FieldRegistrationHandler.register(ModBlocks.class, MOD_ID, false);
-        FieldRegistrationHandler.register(ModItems.class, MOD_ID, false);
+        FieldRegistrationHandler.register(ModItems.class, MOD_ID, true);
         FieldRegistrationHandler.register(ModEntities.class, MOD_ID, false);
+
+        ModItems.init();
 
         getOutdated();
     }
