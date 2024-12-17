@@ -2,6 +2,7 @@ package com.kagaries.fabric.world.block;
 
 import com.kagaries.fabric.Magia;
 import com.kagaries.fabric.world.item.ModItems;
+import io.wispforest.owo.registration.annotations.RegistryNamespace;
 import io.wispforest.owo.registration.reflect.BlockRegistryContainer;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;

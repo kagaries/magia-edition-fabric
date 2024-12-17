@@ -35,9 +35,9 @@ public class Magia implements ModInitializer {
     public void onInitialize() {
         getLogger().info("Initializing Magia Edition: {}", VERSION);
         ModEntities.createDefaultAttributes();
-        FieldRegistrationHandler.register(ModBlocks.class, MOD_ID, false);
-        FieldRegistrationHandler.register(ModItems.class, MOD_ID, true);
-        FieldRegistrationHandler.register(ModEntities.class, MOD_ID, false);
+        FieldRegistrationHandler.register(ModBlocks.class, "magia-blocks", true);
+        FieldRegistrationHandler.register(ModItems.class, "magia-items", true);
+        FieldRegistrationHandler.register(ModEntities.class, "magia-entities", true);
 
         ModItems.init();
 

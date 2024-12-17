@@ -27,3 +27,4 @@
 /gamemode creative
 /gamemode survival
 /gamemode creative
+/summon magia-entities:zombie_clone

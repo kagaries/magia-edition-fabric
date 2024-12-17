@@ -9,12 +9,17 @@
   "text.config.magia-config.option.PvPExplosionDamage": "PvP Explosion Damage",
   "text.config.magia-config.option.PvPExplosionDamage.tooltip": "Should Explosion Damage from Players deal damage or not.",
   "me-fabric.main": "Main Version",
-  "item.me-fabric.emerald_axe": "Emerald Axe",
-  "block.me-fabric.test": "Test Block",
-  "item.me-fabric-mob-items.blue_slime_ball": "Soul Slime Ball",
+  "item.magia-items.emerald_axe": "Emerald Axe",
+  "block.magia-blocks.test": "Test Block",
+  "item.magia-food-items.enchanted_golden_carrot": "Enchanted Golden Carrot",
+  "item.magia-mob-items.blue_slime_ball": [
+    { "text": "Blue Slime Ball", "color": "#33CCFF" }
+  ],
   "itemGroup.me-fabric.me-fabric": "Magia Edition",
   "itemGroup.me-fabric.me-fabric.tab.magia-edition": "Magia Edition",
-  "itemGroup.me-fabric.me-fabric.tab.magia-weapons-and-tools": "Magia Weapons/Tools",
-  "itemGroup.me-fabric.me-fabric.tab.magia-blocks": "Magia Blocks",
-  "itemGroup.me-fabric.me-fabric.tab.magia-mob-ingredients": "Magia Mob Ingredients"
+  "itemGroup.me-fabric.me-fabric.tab.magia-weapons-and-tools": "Weapons/Tools",
+  "itemGroup.me-fabric.me-fabric.tab.magia-foods": "Foods",
+  "itemGroup.me-fabric.me-fabric.tab.magia-blocks": "Blocks",
+  "itemGroup.me-fabric.me-fabric.tab.magia-ingredients": "Ingredients",
+  "entity.magia-entities.zombie_clone": "Zombie Soldier"
 }
