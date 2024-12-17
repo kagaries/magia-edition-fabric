@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "minecraft:item/blue_slime_ball"
+    "layer0": "me-fabric-mob-items:item/blue_slime_ball"
   }
 }

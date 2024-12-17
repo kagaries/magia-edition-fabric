@@ -1,18 +1,20 @@
 {
   "text.config.magia-config.title": "Magia Edition Config",
-
   "text.config.magia-config.option.damageMulti": "Damage Multiplier",
-
   "text.config.magia-config.option.UnfairMode": "Unfair Mode",
-
   "text.config.magia-config.option.doQuickExplosionDamage": "DoQuickExplosionDamage",
   "text.config.magia-config.option.doQuickExplosionDamage.tooltip": "Should explosives like End Crystals deal damage or not.",
-
   "text.config.magia-config.option.PvPRangedDamage": "PvP Ranged Damage",
   "text.config.magia-config.option.PvPRangedDamage.tooltip": "Should Ranged Weapons used by Players deal damage or not.",
-
   "text.config.magia-config.option.PvPExplosionDamage": "PvP Explosion Damage",
   "text.config.magia-config.option.PvPExplosionDamage.tooltip": "Should Explosion Damage from Players deal damage or not.",
-
-  "me-fabric.main": "Main Version"
+  "me-fabric.main": "Main Version",
+  "item.me-fabric.emerald_axe": "Emerald Axe",
+  "block.me-fabric.test": "Test Block",
+  "item.me-fabric-mob-items.blue_slime_ball": "Soul Slime Ball",
+  "itemGroup.me-fabric.me-fabric": "Magia Edition",
+  "itemGroup.me-fabric.me-fabric.tab.magia-edition": "Magia Edition",
+  "itemGroup.me-fabric.me-fabric.tab.magia-weapons-and-tools": "Magia Weapons/Tools",
+  "itemGroup.me-fabric.me-fabric.tab.magia-blocks": "Magia Blocks",
+  "itemGroup.me-fabric.me-fabric.tab.magia-mob-ingredients": "Magia Mob Ingredients"
 }
