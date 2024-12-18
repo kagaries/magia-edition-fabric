@@ -1,5 +1,6 @@
 {
   "text.config.magia-config.title": "Magia Edition Config",
+  "text.config.magia-config.option.checkForUpdates": "Check For Updates",
   "text.config.magia-config.option.damageMulti": "Damage Multiplier",
   "text.config.magia-config.option.UnfairMode": "Unfair Mode",
   "text.config.magia-config.option.doQuickExplosionDamage": "DoQuickExplosionDamage",

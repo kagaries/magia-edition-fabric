@@ -63,6 +63,10 @@ public class Magia implements ModInitializer {
 
     //Gets a Json page from an url that is read to check if the current version is out-of-date or not.
     public static void getOutdated() {
+        if (!CONFIG.checkForUpdates()) {
+            Magia.getLogger().info("Skipping Update Check");
+            return;
+        }
         try {
             Magia.getLogger().info("Checking for Update...");
             // URL to fetch data from

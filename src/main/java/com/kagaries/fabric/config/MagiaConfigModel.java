@@ -7,6 +7,8 @@ import io.wispforest.owo.config.annotation.RangeConstraint;
 @Modmenu(modId = "me-fabric")
 @Config(name = "magia-config", wrapperName = "MagiaConfig")
 public class MagiaConfigModel {
+    public boolean checkForUpdates = true;
+
     @RangeConstraint(min = 0.0f, max = 5.0f)
     public float damageMulti = 1.0f;
 
