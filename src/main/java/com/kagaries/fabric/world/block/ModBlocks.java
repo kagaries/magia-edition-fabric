@@ -18,6 +18,7 @@ import java.util.logging.Level;
 
 public class ModBlocks implements BlockRegistryContainer {
 
+    // registered as 'magia-blocks:<name>'
     public static final Block TEST = new Block(AbstractBlock.Settings.create());
 
     @Override

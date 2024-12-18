@@ -20,18 +20,6 @@ import net.minecraft.util.Rarity;
 
 public class ModItems implements ItemRegistryContainer {
 
-    @RegistryNamespace("magia-mob-items")
-    public static class ModMobItems implements ItemRegistryContainer {
-        // registered as 'magia-mob-items:blue_slime'
-        public static final Item BLUE_SLIME_BALL = new Item(new OwoItemSettings().food(new FoodComponent.Builder().hunger(2).saturationModifier(0.4F).statusEffect(new StatusEffectInstance(StatusEffects.SPEED, 35), 1f).alwaysEdible().build()));
-    }
-
-    @RegistryNamespace("magia-food-items")
-    public static class ModFoodItems implements ItemRegistryContainer {
-        // registered as 'magia-food-items:enchanted_golden_carrot'
-        public static final Item ENCHANTED_GOLDEN_CARROT = new EnchantedGoldenCarrotItem(new OwoItemSettings().food(new FoodComponent.Builder().hunger(6).saturationModifier(1.2F).statusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 100, 0), 1.0F).statusEffect(new StatusEffectInstance(StatusEffects.ABSORPTION, 2400, 0), 1.0F).statusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 6000, 0), 1.0F).build()).rarity(Rarity.EPIC));
-    }
-
     public static final OwoItemGroup ITEM_GROUP = OwoItemGroup.builder(new Identifier(Magia.MOD_ID, "me-fabric"), () -> Icon.of(ModItems.EMERALD_AXE))
             .initializer(owoItemGroup -> {
                 owoItemGroup.addCustomTab(Icon.of(ModMobItems.BLUE_SLIME_BALL), "magia-edition", ((displayContext, entries) -> {
@@ -55,7 +43,20 @@ public class ModItems implements ItemRegistryContainer {
             })
             .build();
 
+    // registered as 'magia-items:<name>'
     public static final AxeItem EMERALD_AXE = new AxeItem(EmeraldMaterial.INSTANCE, 6, -3.35F, new OwoItemSettings());
+
+    @RegistryNamespace("magia-mob-items")
+    public static class ModMobItems implements ItemRegistryContainer {
+        // registered as 'magia-mob-items:<name>'
+        public static final Item BLUE_SLIME_BALL = new Item(new OwoItemSettings().food(new FoodComponent.Builder().hunger(2).saturationModifier(0.4F).statusEffect(new StatusEffectInstance(StatusEffects.SPEED, 35), 1f).alwaysEdible().build()));
+    }
+
+    @RegistryNamespace("magia-food-items")
+    public static class ModFoodItems implements ItemRegistryContainer {
+        // registered as 'magia-food-items:<name>'
+        public static final Item ENCHANTED_GOLDEN_CARROT = new EnchantedGoldenCarrotItem(new OwoItemSettings().food(new FoodComponent.Builder().hunger(6).saturationModifier(1.2F).statusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 100, 0), 1.0F).statusEffect(new StatusEffectInstance(StatusEffects.ABSORPTION, 2400, 0), 1.0F).statusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 6000, 0), 1.0F).build()).rarity(Rarity.EPIC));
+    }
 
     public static void init() {
         ITEM_GROUP.initialize();
